@@ -2,17 +2,12 @@
  * @param  {Object} app
  */
 function initIndex(app, session, client, moment, arriverGDL, departMelun, heuredepart, heures) {
-<<<<<<< HEAD
 
   app.get('/:position', (req, res, next) => {
 
     var position = req.params.position;
     positionMelunToGDL = () => {
 
-=======
-  app.get('/', (req, res) => {
-    testa = () => {
->>>>>>> master
       client.get('journeys' + '?' + 'to=' + arriverGDL + '&' + 'from=' + departMelun + '&' + 'datetime_represents=departure' + '&' + heuredepart + '&').then(function(result) {
         const departure = result.body.journeys[0].departure_date_time;
         const arrival = result.body.journeys[0].arrival_date_time;
