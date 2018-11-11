@@ -19,9 +19,9 @@ heureDepartMoment = moment().format('YYYYMMDD' + 'T' + 'HHmmss');
 const heuredepart = heureDepartMoment;
 
 var heures = {
-  dateDemander: '',
-  dateArrivee: '',
-  dateDepart: '',
+    dateDemander: '',
+    dateArrivee: '',
+    dateDepart: '',
 };
 // global.userModel = require('./models/user').createSchema(mongoose, mongooseUniqueValidator);
 
@@ -36,12 +36,12 @@ app.set('views', 'views');
 app.set('view engine', 'html');
 app.engine('html', twig.__express);
 app.set('twig options', {
-  strict_variables: false,
+    strict_variables: false,
 });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
-  extended: false,
+    extended: false,
 }));
 
 
@@ -54,14 +54,21 @@ app.use('/css', express.static('public/css'));
 app.use('/img', express.static('public/img'));
 app.use('/assets', express.static('public'));
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    next();
+});
+
 // initialise une session
 app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 30 * 60000,
-  },
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 30 * 60000,
+    },
 }));
 
 
@@ -69,8 +76,8 @@ app.use(session({
 require('./routes/index').init(app, session, client, moment, arriverGDL, departMelun, heuredepart, heures);
 
 // ALL OTHER ROUTES REDIRECT TO '/'
-app.get('*', function(req, res) {
-  res.redirect('/');
+app.get('*', function (req, res) {
+    res.redirect('/');
 });
 
 
