@@ -1,13 +1,29 @@
 let express = require('express');
 let app = express();
-let http = require('http').Server(app);
 let twig = require('twig');
 let bodyParser = require('body-parser');
 let session = require('express-session');
+const moment = require('moment');
+moment.locale('fr');
 // const mongoose = require('mongoose');
 // const mongooseUniqueValidator = require('mongoose-unique-validator');
+const URL = "https://api.navitia.io/v1/coverage/fr-idf/"
+const TOKEN = "6f5ff13d-2e7e-4bfb-9d12-e29ecfcc7da5"
+const request = require("request-json");
+const client = request.createClient(URL);
+client.setBasicAuth(TOKEN);
+
+const arriverGDL = "stop_area:OIF:SA:8768600"
+const departMelun = "stop_area:OIF:SA:8768200"
+heureDepartMoment = moment().format("YYYYMMDD" + "T" + "HHmmss");
+const heuredepart = heureDepartMoment
 
 
+var heures = {
+    dateDemander: "",
+    dateArrivee: "",
+    dateDepart: ""
+};
 // global.userModel = require('./models/user').createSchema(mongoose, mongooseUniqueValidator);
 
 // // NOTE MongoDB Connection
@@ -51,7 +67,7 @@ app.use(session({
 
 
 // ROUTES
-require('./routes/index').init(app, session, http);
+require('./routes/index').init(app, session, client, moment, arriverGDL, departMelun, heuredepart, heures);
 
 // ALL OTHER ROUTES REDIRECT TO '/'
 app.get('*', function (req, res) {
@@ -60,8 +76,8 @@ app.get('*', function (req, res) {
 
 
 
-client.login(config.token);
+// client.login(config.token);
 
 
-module.exports = http;
+module.exports = app;
 
