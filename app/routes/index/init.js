@@ -37,15 +37,14 @@ function initIndex(app, session, client, moment, arriverGDL, departMelun, heured
     });
   });
 
-  app.post('/test', (req, res) => {
+  app.get('/test/:position', (req, res) => {
 
-    // trouver la variable position
-    // var position = req.params.position;
-    console.log(res);
-    client.get('coord/'+ position + '/places_nearby?distance=20000&type%5B%5D=stop_point&start_page=1&count=100&').then(function (result) {
-      // console.log(result);
+    var position = req.params.position;
+		console.log("​initIndex -> position", position)
+    client.get('coord/'+ position + '/places_nearby?distance=20000&type%5B%5D=stop_point&count=200&').then(function (result) {
+      console.log(result.body);
+      res.send(result.body);
     });
-    res.send(res.body);
   });
 };
 

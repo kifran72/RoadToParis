@@ -7,7 +7,8 @@ function getLocation() {
 }
 function showPosition(position) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://localhost:3000/test', true);
+  console.log(position);
+  xhr.open("GET", 'http://localhost:3000/test/' + position.coords.longitude + ";" + position.coords.latitude, true);
 
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -16,14 +17,10 @@ function showPosition(position) {
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
     }
   }
-  xhr.onload = function () {
-    console.log('oui');
+  xhr.onload = function (result) {
+    console.log(result);
   };
 
-  let position = {
-    x: position.longitude,
-    y: position.latitude
-  }
-  xhr.send(position);
+  xhr.send(null);
 }
 getLocation();
