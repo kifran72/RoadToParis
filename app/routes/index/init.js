@@ -25,9 +25,6 @@ function initIndex(app, session, client, moment, arriverGDL, departMelun, heured
       });
     };
 
-    test = () => {
-      
-    }
     getBestJourney = () => {
       client.get('coord/' + position + '/places_nearby?distance=20000&type%5B%5D=stop_point&start_page=1&count=100&').then(function (result) {
         console.log(result);

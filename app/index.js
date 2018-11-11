@@ -18,7 +18,6 @@ const departMelun = 'stop_area:OIF:SA:8768200';
 heureDepartMoment = moment().format('YYYYMMDD' + 'T' + 'HHmmss');
 const heuredepart = heureDepartMoment;
 
-
 var heures = {
   dateDemander: '',
   dateArrivee: '',
