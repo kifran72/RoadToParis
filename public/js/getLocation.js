@@ -1,21 +1,20 @@
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = 'Geolocation is not supported by this browser.';
-  }
+
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(showPosition);
+} else {
+console.log('Geolocation is not supported by this browser.');
 }
 
 function showPosition(position) {
-//   ('/', function() {
-//     const position = {
-//       x: position.longitude,
-//       y: position.latitude,
-//       timestamp: position.timestamp,
-//     };
-//     return position;
-//   });
-  console.log(position);
+    const req = new XMLHttpRequest();
+    let position = {
+        x: position.longitude,
+        y: position.latitude
+      }
+
+    req.open("POST", "/");
+    req.setRequestHeader("Content-Type", "application/json");
+    req.send(JSON.stringify({x: position.x, y: position.y}));
 }
 
-getLocation();
+
